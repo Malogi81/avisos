@@ -19,19 +19,19 @@
 window.CLIENTES = {
 
     // ---- EJEMPLO 1: borralo o cambialo por un cliente real ----
-    ejemplo1: {
-        empresa: 'Internet Rapido Demo',
-        telefono: '5551234567',      // 10 digitos, con lada, sin espacios
-        pais: '52',                  // codigo de pais (52 = Mexico)
-        whatsapp: true,              // true = muestra boton de WhatsApp al mismo numero
-        color: '#0d5c46',            // color principal (hexadecimal de 6 digitos)
-        mensajeAviso: '',            // opcional: reemplaza el texto del aviso de pago
-        mensajeSuspendido: '',       // opcional: reemplaza el texto de suspendido
-        pago: {
-            banco: 'Banco Ejemplo',
-            titular: 'Nombre del Titular',
-            cuenta: '012345678901234567',
-            puntos: 'Oficina en Calle Principal 10, de lunes a sabado'
+    amanecer-network: {
+    empresa: 'AMANECER-NETWORK',
+    telefono: '9673778647',
+    pais: '52',
+    whatsapp: true,
+    color: '#0d5c46',
+    mensajeAviso: '',
+    mensajeSuspendido: '',
+    pago: {
+        banco: 'BanCoppel',
+        titular: 'Juan Enrique Pérez Gómez',
+        cuenta: '137130103150115297',
+        puntos: 'Nichteel crucero hermita, tienda Diego Gomez santiz. Muro'
         }
     },
 
