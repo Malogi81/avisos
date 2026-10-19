@@ -8,21 +8,28 @@ Cada cliente tiene su propio codigo y sus propios datos (nombre, telefono,
 WhatsApp, color y datos de pago). Tus datos NO aparecen en ninguna parte.
 
 IMPORTANTE: crea este repositorio NUEVO y aparte del tuyo (el de
-aviso.intertenejapa.com). No mezcles los dos.
+aviso.intertenejapa.com). No mezcles los dos. Usa tu mismo dominio, pero con
+OTRO subdominio: avisos.intertenejapa.com (con "s" al final).
+
+OJO: en la barra del navegador, los clientes de tus clientes veran
+"intertenejapa.com". Si algun cliente no debe ver tu dominio, dime y le
+preparamos una direccion aparte (la de github.io o su propio dominio).
 
 Archivos de esta carpeta:
    index.html        Aviso de "tienes un pago pendiente" (generico)
    suspendido.html   Aviso de "servicio suspendido" (generico)
    clientes.js       AQUI agregas a cada cliente (es el unico que editas)
    generador.html    Formulario que te arma el bloque de cada cliente y sus enlaces
+   CNAME             Le dice a GitHub que use tu dominio: avisos.intertenejapa.com
 
 -----------------------------------------------------------------------------
 PASO 1 - Crea el repositorio y sube los archivos (una sola vez)
 -----------------------------------------------------------------------------
 1) En github.com: "+" (arriba a la derecha) -> "New repository".
 2) Nombre:  avisos     Marca "Public"     Clic en "Create repository".
-3) "Add file" -> "Upload files" y sube los 4 archivos de esta carpeta, con sus
-   nombres tal cual (index.html, suspendido.html, clientes.js, generador.html).
+3) "Add file" -> "Upload files" y sube los 5 archivos de esta carpeta, con sus
+   nombres tal cual (index.html, suspendido.html, clientes.js, generador.html
+   y CNAME -- este ultimo se llama asi, sin extension).
 4) "Commit changes".
 
 -----------------------------------------------------------------------------
@@ -30,25 +37,41 @@ PASO 2 - Activa GitHub Pages (una sola vez)
 -----------------------------------------------------------------------------
 1) En el repositorio: Settings -> Pages.
 2) Source: "Deploy from a branch". Branch: main, carpeta "/ (root)". Save.
-3) Espera 1 o 2 minutos y recarga: arriba aparece "Your site is live at ..."
-   Esa es la direccion base, normalmente:
-        https://TU-USUARIO.github.io/avisos/
-   Usa EXACTAMENTE la que te muestre GitHub (si tu cuenta ya tiene un dominio
-   propio configurado en el sitio principal, la direccion puede ser distinta).
-4) Prueba en el navegador con los clientes de ejemplo que ya trae clientes.js:
-        https://TU-USUARIO.github.io/avisos/?c=ejemplo1
-        https://TU-USUARIO.github.io/avisos/suspendido.html?c=ejemplo1
+3) En "Custom domain" debe aparecer:  avisos.intertenejapa.com
+   (viene del archivo CNAME; si esta vacio, escribelo y dale Save).
+   Si GitHub marca que el DNS todavia no esta listo, es normal: sigue al
+   siguiente paso.
+
+-----------------------------------------------------------------------------
+PASO 2B - Conecta tu dominio (DNS)
+-----------------------------------------------------------------------------
+1) Entra al panel de tu proveedor de dominio -> DNS (o "Advanced DNS").
+   Es el mismo donde ya creaste el registro de "aviso".
+2) Agrega un registro nuevo:
+        Tipo:   CNAME
+        Host:   avisos
+        Valor:  TU-USUARIO.github.io      (el mismo usuario de GitHub que usas
+                                           en el registro de "aviso")
+   Deja el de "aviso" como esta: no lo toques.
+3) Guarda y espera de 15 minutos a unas horas.
+4) Vuelve a GitHub -> Settings -> Pages del repositorio "avisos". Cuando
+   termine la verificacion aparece la casilla "Enforce HTTPS": marcala.
+5) Prueba en el navegador con los clientes de ejemplo que ya trae clientes.js:
+        https://avisos.intertenejapa.com/?c=ejemplo1
+        https://avisos.intertenejapa.com/suspendido.html?c=ejemplo1
    Deben verse los avisos con candado de conexion segura.
+   (Mientras el DNS se propaga, tambien funciona la direccion
+    https://TU-USUARIO.github.io/avisos/ ... pero ya con el dominio puesto,
+    GitHub te redirige al dominio propio.)
 
 -----------------------------------------------------------------------------
 PASO 3 - Agrega un cliente nuevo (cada vez que tengas uno)
 -----------------------------------------------------------------------------
 1) Abre generador.html (puedes abrirlo con doble clic desde tu PC, o en
-   https://TU-USUARIO.github.io/avisos/generador.html).
-2) Llena: tu usuario de GitHub, el codigo del cliente (ej. cliente1), nombre
-   de su empresa, telefono, color y, si quieres, datos de pago y mensajes.
-   (Si GitHub te mostro una direccion base distinta, escribela en el campo
-   "Direccion base completa".)
+   https://avisos.intertenejapa.com/generador.html).
+2) Llena: el codigo del cliente (ej. cliente1), nombre de su empresa,
+   telefono, color y, si quieres, datos de pago y mensajes. La direccion base
+   ya viene con tu dominio (https://avisos.intertenejapa.com/).
 3) Clic en "Copiar bloque".
 4) En GitHub abre clientes.js y toca el lapiz (Edit this file).
 5) Pega el bloque DENTRO de window.CLIENTES = { ... }, junto a los demas.
@@ -65,8 +88,8 @@ PASO 3 - Agrega un cliente nuevo (cada vez que tengas uno)
 PASO 4 - Usa los enlaces del cliente
 -----------------------------------------------------------------------------
 Cada cliente tiene DOS enlaces (el generador te los da ya listos):
-   Aviso de pago:   https://TU-USUARIO.github.io/avisos/?c=CODIGO
-   Suspendido:      https://TU-USUARIO.github.io/avisos/suspendido.html?c=CODIGO
+   Aviso de pago:   https://avisos.intertenejapa.com/?c=CODIGO
+   Suspendido:      https://avisos.intertenejapa.com/suspendido.html?c=CODIGO
 Esos enlaces son los que ese cliente pone como destino de la redireccion de
 "aviso de pago" y de "suspendido" en SU MikroTik / su servidor, igual que tu
 usas los tuyos. Si un cliente que no usa tu sistema necesita saber COMO
