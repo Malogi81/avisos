@@ -19,7 +19,7 @@
 window.CLIENTES = {
 
     // ---- EJEMPLO 1: borralo o cambialo por un cliente real ----
-    amanecer-network: {
+    amanecernetwork: {
     empresa: 'AMANECER-NETWORK',
     telefono: '9673778647',
     pais: '52',
