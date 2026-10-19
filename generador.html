@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex">
+<title>Generador de avisos</title>
+<style>
+    * { box-sizing: border-box; }
+    body { font-family: -apple-system, 'Segoe UI', Tahoma, sans-serif; background: #f2f6f4; color: #26332f; margin: 0; padding: 20px; }
+    .wrap { max-width: 760px; margin: 0 auto; }
+    h1 { font-size: 22px; color: #0d5c46; margin-bottom: 4px; }
+    p.sub { color: #55665f; font-size: 14px; margin-bottom: 18px; line-height: 1.45; }
+    .panel { background: #fff; border-radius: 12px; padding: 18px; margin-bottom: 16px; box-shadow: 0 2px 8px rgba(0,0,0,.06); }
+    .panel h2 { font-size: 15px; color: #0d5c46; margin-bottom: 12px; }
+    .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    @media (max-width: 560px) { .grid { grid-template-columns: 1fr; } }
+    label { display: block; font-size: 13px; color: #55665f; margin-bottom: 4px; }
+    input[type=text], input[type=tel], textarea { width: 100%; padding: 9px 10px; border: 1px solid #c9d6d2; border-radius: 8px; font-size: 14px; font-family: inherit; }
+    input[type=color] { width: 56px; height: 38px; padding: 2px; border: 1px solid #c9d6d2; border-radius: 8px; background: #fff; }
+    textarea { resize: vertical; min-height: 64px; }
+    .full { grid-column: 1 / -1; }
+    .check { display: flex; align-items: center; gap: 8px; font-size: 14px; color: #26332f; }
+    pre { background: #1b2b27; color: #e8f3ef; padding: 14px; border-radius: 10px; font-size: 12.5px; overflow-x: auto; white-space: pre; line-height: 1.45; }
+    .url { background: #f4f7f6; border: 1px solid #dbe5e2; border-radius: 8px; padding: 9px 10px; font-size: 13px; margin-bottom: 8px; overflow-wrap: anywhere; font-family: Consolas, monospace; }
+    button { background: #0d5c46; color: #fff; border: none; border-radius: 8px; padding: 9px 16px; font-size: 14px; cursor: pointer; margin-top: 8px; }
+    button:active { background: #0a4a38; }
+    .aviso { font-size: 13px; color: #8a5a00; background: #fff4de; border-radius: 8px; padding: 10px 12px; margin-top: 10px; line-height: 1.4; }
+</style>
+</head>
+<body>
+<div class="wrap">
+    <h1>Generador de avisos para clientes</h1>
+    <p class="sub">Llena los datos del cliente. Abajo te sale el bloque para pegar en <b>clientes.js</b> y los dos enlaces que van en el MikroTik de ese cliente. Esta p&aacute;gina no env&iacute;a nada a ning&uacute;n lado: todo se calcula en tu navegador.</p>
+
+    <div class="panel">
+        <h2>1. D&oacute;nde est&aacute; publicado</h2>
+        <div class="grid">
+            <div><label for="usuario">Usuario de GitHub</label><input type="text" id="usuario" placeholder="tu-usuario"></div>
+            <div><label for="repo">Nombre del repositorio</label><input type="text" id="repo" value="avisos"></div>
+            <div class="full"><label for="base">Direcci&oacute;n base completa (opcional: solo si GitHub te mostr&oacute; otra en Settings &gt; Pages)</label><input type="text" id="base" placeholder="https://tu-usuario.github.io/avisos/"></div>
+        </div>
+    </div>
+
+    <div class="panel">
+        <h2>2. Datos del cliente</h2>
+        <div class="grid">
+            <div><label for="codigo">C&oacute;digo (min&uacute;sculas, sin espacios)</label><input type="text" id="codigo" placeholder="cliente1"></div>
+            <div><label for="empresa">Nombre de la empresa</label><input type="text" id="empresa" placeholder="Mi Empresa WiFi"></div>
+            <div><label for="telefono">Tel&eacute;fono (10 d&iacute;gitos, con lada)</label><input type="tel" id="telefono" placeholder="5551234567"></div>
+            <div><label for="pais">C&oacute;digo de pa&iacute;s</label><input type="text" id="pais" value="52"></div>
+            <div class="check"><input type="checkbox" id="whatsapp" checked><label for="whatsapp" style="margin:0">Mostrar bot&oacute;n de WhatsApp (mismo n&uacute;mero)</label></div>
+            <div><label for="color">Color principal</label><input type="color" id="color" value="#0d5c46"></div>
+            <div class="full"><label for="mensajeAviso">Mensaje del aviso de pago (opcional)</label><textarea id="mensajeAviso" placeholder="Si lo dejas vac&iacute;o se usa el mensaje est&aacute;ndar."></textarea></div>
+            <div class="full"><label for="mensajeSuspendido">Mensaje de servicio suspendido (opcional)</label><textarea id="mensajeSuspendido" placeholder="Si lo dejas vac&iacute;o se usa el mensaje est&aacute;ndar."></textarea></div>
+        </div>
+    </div>
+
+    <div class="panel">
+        <h2>3. Datos de pago (opcional)</h2>
+        <div class="grid">
+            <div><label for="banco">Banco</label><input type="text" id="banco"></div>
+            <div><label for="titular">Titular</label><input type="text" id="titular"></div>
+            <div class="full"><label for="cuenta">Cuenta o CLABE</label><input type="text" id="cuenta"></div>
+            <div class="full"><label for="puntos">Puntos de pago (direcci&oacute;n y horario)</label><textarea id="puntos"></textarea></div>
+        </div>
+        <div class="aviso">El repositorio es p&uacute;blico: todo lo que escribas aqu&iacute; ser&aacute; visible para cualquiera con el enlace. Pon solo datos que el cliente ya necesita ver.</div>
+    </div>
+
+    <div class="panel">
+        <h2>4. Resultado</h2>
+        <label>Pega este bloque dentro de <b>clientes.js</b> (antes de la llave de cierre final), con una coma al final del bloque anterior:</label>
+        <pre id="bloque"></pre>
+        <button type="button" id="copiarBloque">Copiar bloque</button>
+        <div style="margin-top:18px"><label>Enlace del aviso de pago:</label><div class="url" id="urlAviso"></div>
+        <label>Enlace de servicio suspendido:</label><div class="url" id="urlSusp"></div></div>
+        <button type="button" id="copiarUrls">Copiar los dos enlaces</button>
+    </div>
+</div>
+
+<script>
+(function () {
+    function $(id) { return document.getElementById(id); }
+    function lit(v) { return "'" + String(v || '').replace(/\\/g, '\\\\').replace(/'/g, "\\'").replace(/[\r\n]+/g, ' ').trim() + "'"; }
+    function codigoLimpio(v) { return String(v || '').toLowerCase().replace(/[^a-z0-9_-]/g, '').slice(0, 40) || 'cliente1'; }
+    function generar() {
+        var cod = codigoLimpio($('codigo').value);
+        var tel = $('telefono').value.replace(/\D/g, '');
+        var pais = $('pais').value.replace(/\D/g, '') || '52';
+        var b = cod + ': {\n' +
+            '    empresa: ' + lit($('empresa').value) + ',\n' +
+            '    telefono: ' + lit(tel) + ',\n' +
+            '    pais: ' + lit(pais) + ',\n' +
+            '    whatsapp: ' + ($('whatsapp').checked ? 'true' : 'false') + ',\n' +
+            '    color: ' + lit($('color').value) + ',\n' +
+            '    mensajeAviso: ' + lit($('mensajeAviso').value) + ',\n' +
+            '    mensajeSuspendido: ' + lit($('mensajeSuspendido').value) + ',\n' +
+            '    pago: {\n' +
+            '        banco: ' + lit($('banco').value) + ',\n' +
+            '        titular: ' + lit($('titular').value) + ',\n' +
+            '        cuenta: ' + lit($('cuenta').value) + ',\n' +
+            '        puntos: ' + lit($('puntos').value) + '\n' +
+            '    }\n' +
+            '}';
+        $('bloque').textContent = b;
+        var u = ($('usuario').value.trim() || 'TU-USUARIO').replace(/[^A-Za-z0-9-]/g, '');
+        var r = ($('repo').value.trim() || 'avisos').replace(/[^A-Za-z0-9._-]/g, '');
+        var base = 'https://' + u + '.github.io/' + r + '/';
+        var manual = $('base').value.trim();
+        if (/^https:\/\/[A-Za-z0-9.-]+(\/[A-Za-z0-9._~\/-]*)?$/.test(manual)) { base = manual.replace(/\/?$/, '/'); }
+        $('urlAviso').textContent = base + '?c=' + cod;
+        $('urlSusp').textContent = base + 'suspendido.html?c=' + cod;
+    }
+    function copiar(texto, boton) {
+        function listo() { var t = boton.textContent; boton.textContent = 'Copiado'; setTimeout(function () { boton.textContent = t; }, 1500); }
+        if (navigator.clipboard && navigator.clipboard.writeText) { navigator.clipboard.writeText(texto).then(listo, function () {}); return; }
+        var ta = document.createElement('textarea'); ta.value = texto; document.body.appendChild(ta); ta.select();
+        try { document.execCommand('copy'); listo(); } catch (e) {} document.body.removeChild(ta);
+    }
+    Array.prototype.forEach.call(document.querySelectorAll('input, textarea'), function (el) { el.addEventListener('input', generar); el.addEventListener('change', generar); });
+    $('copiarBloque').addEventListener('click', function () { copiar($('bloque').textContent, this); });
+    $('copiarUrls').addEventListener('click', function () { copiar($('urlAviso').textContent + '\n' + $('urlSusp').textContent, this); });
+    generar();
+})();
+</script>
+</body>
+</html>
